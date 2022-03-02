@@ -3,21 +3,24 @@ $gotoFirstColumn = "$esc[0G"
 $hideCursor = "$esc[?25l"
 $showCursor = "$esc[?25h"
 $resetAll = "$esc[0m"
+$interactive = 1
 
-switch ($args.Count) {
-    1 {$hrs = 0; $min = 0; $sec = $args[0]; break}
-    2 {$hrs = 0; $min = $args[0]; $sec = $args[1]; break}
-    3 {$hrs = $args[0]; $min = $args[1]; $sec = $args[2]; break}
-    #default {echo "Usage: Countdown.ps1 <hours> <minutes> <seconds>"; return}
+if ($args.Count -gt 0) {
+    $interactive = 0
+    switch ($args.Count) {
+        1 {$hrs = 0; $min = 0; $sec = $args[0]; break}
+        2 {$hrs = 0; $min = $args[0]; $sec = $args[1]; break}
+        3 {$hrs = $args[0]; $min = $args[1]; $sec = $args[2]; break}
+    }
+
+if ($intactive) {
+    write-host ""
+    $hrs = [int](Read-Host -prompt "`t  Hours")
+    $min = [int](Read-Host -prompt "`tMinutes")
+    $sec = [int](Read-Host -prompt "`tSeconds")
+    $repeat = Read-Host -prompt    "`tRepeat?"
+    write-host ""
 }
-write-host ""
-
-$hrs = [int](Read-Host -prompt "`t  Hours")
-$min = [int](Read-Host -prompt "`tMinutes")
-$sec = [int](Read-Host -prompt "`tSeconds")
-$repeat = Read-Host -prompt    "`tRepeat?"
-
-write-host ""
 
 $count = $hrs*3600 + $min*60 + $sec
 
