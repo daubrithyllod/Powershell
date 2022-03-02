@@ -12,8 +12,9 @@ if ($args.Count -gt 0) {
         2 {$hrs = 0; $min = $args[0]; $sec = $args[1]; break}
         3 {$hrs = $args[0]; $min = $args[1]; $sec = $args[2]; break}
     }
+}
 
-if ($intactive) {
+if ($interactive) {
     write-host ""
     $hrs = [int](Read-Host -prompt "`t  Hours")
     $min = [int](Read-Host -prompt "`tMinutes")
@@ -31,15 +32,12 @@ Write-Host -NoNewline "    Started at ${start_time}...${hideCursor}"
 $column = $HOST.UI.RawUI.CursorPosition.X + 2
 $resetHorizontalPos = "$esc[${column}G"
 
-$loopcount = 0
-
+$loopcount = 1
 do {
   $countdown = $count
 
-  $loopcount++
-  $countdown = $count
-
-  while ($countdown -gt 0) {
+  $countdown--  #An Aesthetic thing. Show remaining seconds not including the current one. 
+  while ($countdown -ge 0) {
     $rem_hrs = [int][math]::floor($countdown/3600);
     $rem_min = [int][math]::floor($countdown/60);
     $rem_min = $rem_min%60;
@@ -57,10 +55,12 @@ do {
   $PlayWav = New-Object System.Media.SoundPlayer
   $PlayWav.SoundLocation = "C:\Windows\Media\Ring01.wav"
   $playWav.Play();
+  $loopcount++
 } while ($repeat -like "[Yy]")
+
 
 $end_time = Get-Date -Format "HH:mm:ss"
 Write-Host "${resetAll}" 
 Write-Host "    Finished at ${end_time}"
 
-pause
+if ($interactive) {pause}
