@@ -1,5 +1,5 @@
-# Just an exercise with Powershell similar to the timer I use on Linux.  
-# Yes, I have a phone, but using it as a timer is a few more steps than I'd prefer.
+# Just an exercise with Powershell similar to the timer I use on Linux.
+# This demonstrates familiarity with syntax, variable assignments, and basic control structures 
 $esc = [char]27
 $gotoFirstColumn = "$esc[0G"
 $hideCursor = "$esc[?25l"
