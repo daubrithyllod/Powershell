@@ -1,5 +1,5 @@
 # Just an exercise with Powershell similar to the timer I use on Linux.
-# This demonstrates familiarity with syntax, variable assignments, and basic control structures 
+# This demonstrates familiarity with syntax, variable assignments, and control structures. 
 $esc = [char]27
 $gotoFirstColumn = "$esc[0G"
 $hideCursor = "$esc[?25l"
